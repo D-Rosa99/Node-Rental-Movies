@@ -6,9 +6,10 @@ const Genres = mongoose.model('Genre', new mongoose.Schema({
         type: String, 
         required: true,
         minlength: 3,
-        lowercase: true
+        lowercase: true,
+        unique: true
     }
-}))
+}));
 
 function inputValidation(userInput) {
     const schema = Joi.object({

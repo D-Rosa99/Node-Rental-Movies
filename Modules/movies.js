@@ -7,7 +7,7 @@ const Movies = mongoose.model('Movie', new mongoose.Schema({
         required: true,
     },
     genre: {
-        type: [mongoose.Schema.Types.ObjectId],
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Genre',
         required: true
     },
@@ -24,12 +24,12 @@ const Movies = mongoose.model('Movie', new mongoose.Schema({
 function inputValidation(userInput) {
     const squema = Joi.object({
         name: Joi.string().required(),
-        genre: Joi.string(),
+        genre: Joi.string().required(),
         totalStock: Joi.number().required(),
         price: Joi.number().required()
     });
 
-    squema.validate(userInput);
+    return squema.validate(userInput);
 };
 
 module.exports = { Movies, inputValidation };

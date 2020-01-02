@@ -12,10 +12,16 @@ const RentalMovies = mongoose.model('RentalMovie', new mongoose.Schema({
         ref: 'Customer',
         required: true
     },
-    movies: {
-        type: [mongoose.Schema.Types.ObjectId],
+    movie: {
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Movie',
         required: true
+    },
+    status: {
+        type:String,
+        required: true,
+        enum: ['valid', 'invalid'],
+        default: 'valid'
     },
     totalPrice: {
         type: Number,
@@ -26,13 +32,11 @@ const RentalMovies = mongoose.model('RentalMovie', new mongoose.Schema({
 
 function inputValidation(userInput) {
     const squema = Joi.object({
-        dateOfRent: Joi.date().required(),
         customer: Joi.string().required(),
-        movies: Joi.string().required(),
-        totalPrice: Joi.number().required()
+        movie: Joi.string().required(),
     });
 
-    squema.validate(userInput);
+    return squema.validate(userInput);
 };
 
 module.exports = { RentalMovies, inputValidation };

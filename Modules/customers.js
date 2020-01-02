@@ -10,28 +10,16 @@ const Customers = mongoose.model('Customer', new mongoose.Schema({
     },
     email: {
         type: String,
-        unique: true
-    },
-    password: {
-        type: String,
-        minlength: 3,
-        maxlength: 10,
+        unique: true,
         required: true
     },
-    isGold: {
-        type: Boolean,
-        required: true,
-        default: false
-    }
 }));
 
 function inputValidation(userInput) {
     const schema = Joi.object({
         name: Joi.string().min(3).required(),
-        email: Joi.string().email(),
-        password: Joi.string().min(3).max(10).required(),
-        isGold: Joi.bool().required()
-    })
+        email: Joi.string().email().required()
+    });
 
     return schema.validate(userInput);
 };
