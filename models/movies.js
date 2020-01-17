@@ -1,35 +1,40 @@
-const Joi = require('@hapi/joi');
-const mongoose = require('mongoose');
+const Joi = require("@hapi/joi");
+const mongoose = require("mongoose");
 
-const Movies = mongoose.model('Movie', new mongoose.Schema({
+const Movies = mongoose.model(
+  "Movie",
+  new mongoose.Schema({
     name: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     isAvaliable: {
-        type: Boolean,
-        required: true,
-        default: true
+      type: Boolean,
+      required: true,
+      default: true
     },
     price: {
-        type: Number,
-        required: true,
+      type: Number,
+      required: true
     },
     genre: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: "Genre"
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "Genre"
     }
-}));
+  })
+);
 
 function InputValidation(movie) {
-    const schema = Joi.object({
-        name: Joi.string().required(),
-        price: Joi.number().required(),
-        genre: Joi.string().min(3).required(),
-    });
+  const schema = Joi.object({
+    name: Joi.string().required(),
+    price: Joi.number().required(),
+    genre: Joi.string()
+      .min(3)
+      .required()
+  });
 
-    return schema.validate(movie);
+  return schema.validate(movie);
 }
 
-module.exports = {Movies, InputValidation};
+module.exports = { Movies, InputValidation };
